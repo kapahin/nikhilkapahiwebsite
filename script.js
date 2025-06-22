@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeNewsletterForm();
 });
 
-// Handle newsletter subscription
+// Handle newsletter subscription for the placeholder form
 function initializeNewsletterForm() {
   const form = document.querySelector('.newsletter-form');
   if (!form) return;
@@ -45,33 +45,11 @@ function initializeNewsletterForm() {
     submitButton.textContent = 'Subscribing...';
     
     try {
-      // For static site deployment, we'll use the simulated subscription
-      // In a real implementation with a server, we would use the API endpoint
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        // If running locally with server, use the API endpoint
-        const response = await fetch('/api/subscribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: emailInput.value }),
-        });
-        
-        if (!response.ok) {
-          throw new Error('Subscription failed');
-        }
-        
-        const data = await response.json();
-        if (!data.success) {
-          throw new Error(data.error || 'Subscription failed');
-        }
-      } else {
-        // For static site deployment without a server, simulate subscription
-        await simulateSubscription(emailInput.value);
-      }
+      // This is a placeholder form - simulate subscription
+      await simulateSubscription(emailInput.value);
       
       // Show success message
-      showStatus('Thank you for subscribing!', 'success');
+      showStatus('Thank you for subscribing! (Note: This is a placeholder form. To collect real subscribers, replace it with your MailerLite embedded form)', 'success');
       emailInput.value = '';
     } catch (error) {
       // Show error message
@@ -97,20 +75,20 @@ function initializeNewsletterForm() {
       // Add new status message after the form
       form.after(statusMessage);
       
-      // Remove success message after 5 seconds
+      // Remove success message after 8 seconds
       if (type === 'success') {
         setTimeout(() => {
           statusMessage.remove();
-        }, 5000);
+        }, 8000);
       }
     }
   });
 }
 
-// Simulate subscription API call for static site deployment
+// Simulate subscription for the placeholder form
 async function simulateSubscription(email) {
   console.log(`Simulating subscription for ${email}`);
-  console.log('In a production environment, this would call the MailerLite API using a server-side endpoint');
+  console.log('IMPORTANT: This is a placeholder form. To collect real subscribers, replace it with your MailerLite embedded form.');
   
   // Simulate network delay
   return new Promise((resolve) => {

@@ -6,8 +6,8 @@ A personal website with podcast episodes and newsletter subscription functionali
 
 - Clean, responsive design inspired by lexfridman.com
 - Multiple pages with navigation (Home and Podcasts)
-- Newsletter subscription using MailerLite API
-- Server-side implementation for API token security
+- Newsletter subscription using MailerLite's embedded form
+- Ready for GitHub Pages deployment
 
 ## Project Structure
 
@@ -16,81 +16,73 @@ A personal website with podcast episodes and newsletter subscription functionali
 ├── podcasts.html           # Podcasts page
 ├── styles.css              # Global styles
 ├── script.js               # Client-side JavaScript
-├── server/                 # Server-side code
-│   ├── config.js           # Server configuration
-│   ├── server.js           # Express server
-│   ├── subscription.js     # Newsletter subscription handler
-│   ├── package.json        # Server dependencies
-│   ├── .env                # Environment variables (not committed to git)
-│   └── .env.example        # Example environment variables
 └── .gitignore              # Git ignore file
 ```
 
 ## Setup Instructions
 
-### Static Website (GitHub Pages)
+### GitHub Pages Deployment
 
 1. Clone the repository
 2. Make any desired changes to the HTML, CSS, or JavaScript files
-3. Deploy to GitHub Pages or any static hosting service
+3. Deploy to GitHub Pages:
+   - Go to your GitHub repository
+   - Navigate to Settings > Pages
+   - Select your main branch as the source
+   - Click Save
 
-In this mode, the newsletter subscription will be simulated (no actual API calls).
+### MailerLite Integration
 
-### Full Stack Website (with API Integration)
+The website includes placeholder sections for MailerLite newsletter subscription forms. To set up your MailerLite integration:
 
-1. Clone the repository
-2. Install server dependencies:
-   ```
-   cd server
-   npm install
-   ```
-3. Set up environment variables:
-   ```
-   cp .env.example .env
-   ```
-4. Edit the `.env` file and add your MailerLite API token
-5. Start the server:
-   ```
-   npm start
-   ```
-6. Access the website at http://localhost:3000
+1. **Create a MailerLite Account**: If you don't already have one, sign up at [mailerlite.com](https://www.mailerlite.com/)
 
-## Environment Variables
+2. **Create an Embedded Form**:
+   - Log in to your MailerLite account
+   - Navigate to Forms > Embedded Forms
+   - Create a new form or use an existing one
+   - Customize the form design to match your website
 
-The following environment variables are used:
+3. **Get the Embed Code**:
+   - Once your form is ready, click "Get embed code"
+   - Copy the entire embed code provided by MailerLite
 
-- `MAILERLITE_API_TOKEN`: Your MailerLite API token
-- `PORT`: The port for the server (default: 3000)
-- `NODE_ENV`: The environment (development, production)
+4. **Add the Form to Your Website**:
+   - Open both `index.html` and `podcasts.html`
+   - Find the newsletter section with the placeholder comments
+   - Replace the placeholder comments with your MailerLite embed code
+   - The placeholder looks like this:
+   
+   ```html
+   <!-- 
+   IMPORTANT: REPLACE THIS COMMENT WITH YOUR MAILERLITE EMBEDDED FORM CODE
+   
+   To get your MailerLite embedded form:
+   1. Log in to your MailerLite account
+   2. Go to Forms > Embedded Forms
+   3. Create a new form or select an existing one
+   4. Click "Get embed code"
+   5. Copy the entire embed code
+   6. Replace this comment with that code
+   -->
+   ```
+
+5. **Test Your Form**: After adding the embed code, test your form to ensure it's working correctly
+
+This approach doesn't require any server-side code or API tokens in your repository, making it perfect for GitHub Pages hosting. All subscriber data will be stored directly in your MailerLite account.
 
 ## Development
 
-To run the server in development mode with auto-restart:
+For local development, simply open the HTML files in your browser. No server setup is required.
 
-```
-cd server
-npm run dev
-```
+## Customization
 
-## Deployment
-
-### Static Website
-
-The static website can be deployed to GitHub Pages or any static hosting service.
-
-### Full Stack Website
-
-For the full stack version with API integration, you can deploy to platforms like:
-
-- Heroku
-- Vercel
-- Netlify (with serverless functions)
-- DigitalOcean App Platform
-
-Make sure to set the environment variables in your deployment platform.
+- Edit the HTML files to change content
+- Modify styles.css to adjust the design
+- Update script.js for additional functionality
 
 ## Security Notes
 
-- The MailerLite API token is stored in the `.env` file, which is not committed to git
-- The server-side implementation ensures the API token is never exposed to the client
-- For static deployments, the newsletter subscription is simulated
+- No API tokens or sensitive information are stored in the repository
+- The newsletter subscription is handled directly by MailerLite's embedded form
+- All code can be safely pushed to a public GitHub repository
