@@ -41,16 +41,11 @@
 
     <section class="featured-content">
       <h2>Latest Episode</h2>
-      <div class="episode">
-        <h3>Leslie Pierson</h3>
-        <div class="episode-video">
-          <iframe src="https://www.youtube.com/embed/VXlVM1hUS6c" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p class="episode-description">
-          In this episode, I talk with Leslie Pierson about her journey and insights.
-        </p>
-        <a href="podcasts.html" class="view-more">View all episodes →</a>
+      <div id="latest-episode" class="episode">
+        <!-- Latest episode will be loaded here -->
+        <div class="loading-spinner">Loading latest episode...</div>
       </div>
+      <a href="podcasts.html" class="view-more">View all episodes →</a>
     </section>
 
     <section id="podcast-overview">
@@ -120,5 +115,104 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // YouTube channel ID for Inner Scorecard
+      const channelId = 'UCpN2SOfGG_aw'; // Note: This is a placeholder, replace with actual channel ID
+      const rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+      
+      // Alternative approach using playlist ID if channel ID doesn't work
+      const playlistId = 'PL6izvjIJW6Fbciyn3nSxIAprigsuHUnrm';
+      const playlistRssUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + playlistId;
+      const playlistApiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(playlistRssUrl);
+      
+      // Try channel ID first, fall back to playlist if needed
+      const apiUrlToUse = apiUrl;
+      
+      $.getJSON(apiUrlToUse, function(data) {
+        if (data.status === 'ok') {
+          // Load latest episode
+          if (data.items && data.items.length > 0) {
+            const latestItem = data.items[0];
+            const videoId = latestItem.link.split('v=')[1];
+            const publishDate = new Date(latestItem.pubDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+            
+            $('#latest-episode').html(`
+              <h3>${latestItem.title}</h3>
+              <p class="episode-meta">Published on ${publishDate}</p>
+              <div class="episode-video">
+                <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+              </div>
+              <div class="episode-description">
+                <p>${latestItem.description}</p>
+              </div>
+            `);
+          }
+        } else {
+          // Try playlist approach if channel approach fails
+          $.getJSON(playlistApiUrl, function(data) {
+            if (data.status === 'ok' && data.items && data.items.length > 0) {
+              const latestItem = data.items[0];
+              const videoId = latestItem.link.split('v=')[1];
+              const publishDate = new Date(latestItem.pubDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              });
+              
+              $('#latest-episode').html(`
+                <h3>${latestItem.title}</h3>
+                <p class="episode-meta">Published on ${publishDate}</p>
+                <div class="episode-video">
+                  <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="episode-description">
+                  <p>${latestItem.description}</p>
+                </div>
+              `);
+            } else {
+              $('#latest-episode').html('<p>Unable to load the latest episode. Please try again later.</p>');
+            }
+          }).fail(function() {
+            $('#latest-episode').html('<p>Unable to load the latest episode. Please try again later.</p>');
+          });
+        }
+      }).fail(function() {
+        // Try playlist approach if channel approach fails
+        $.getJSON(playlistApiUrl, function(data) {
+          if (data.status === 'ok' && data.items && data.items.length > 0) {
+            const latestItem = data.items[0];
+            const videoId = latestItem.link.split('v=')[1];
+            const publishDate = new Date(latestItem.pubDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+            
+            $('#latest-episode').html(`
+              <h3>${latestItem.title}</h3>
+              <p class="episode-meta">Published on ${publishDate}</p>
+              <div class="episode-video">
+                <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+              </div>
+              <div class="episode-description">
+                <p>${latestItem.description}</p>
+              </div>
+            `);
+          } else {
+            $('#latest-episode').html('<p>Unable to load the latest episode. Please try again later.</p>');
+          }
+        }).fail(function() {
+          $('#latest-episode').html('<p>Unable to load the latest episode. Please try again later.</p>');
+        });
+      });
+    });
+  </script>
 </body>
 </html>

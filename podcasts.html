@@ -54,24 +54,13 @@
     </section>
 
     <section class="episodes">
-      <div class="episode">
-        <h2>Episode 1: Leslie Pierson</h2>
-        <p class="episode-meta">Published on June 15, 2025</p>
-        <div class="episode-video">
-          <iframe src="https://www.youtube.com/embed/VXlVM1hUS6c" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="episode-description">
-          <p>In this episode, I talk with Leslie Pierson about her journey and insights. We discuss entrepreneurship, innovation, and the challenges of building something new.</p>
-          <p>Leslie shares her experiences and offers valuable advice for aspiring entrepreneurs.</p>
-        </div>
+      <h2>Latest Episodes</h2>
+      <div id="featured-episode" class="featured-episode">
+        <!-- Featured episode will be loaded here -->
       </div>
-
-      <div class="episode">
-        <h2>Episode 2: Coming Soon</h2>
-        <p class="episode-meta">Coming soon</p>
-        <div class="episode-description">
-          <p>Stay tuned for more episodes! Subscribe to the newsletter to get notified when new episodes are released.</p>
-        </div>
+      
+      <div class="episode-grid" id="episode-grid">
+        <!-- Episodes will be loaded here -->
       </div>
     </section>
 
@@ -142,5 +131,175 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // YouTube channel ID for Inner Scorecard
+      const channelId = 'UCpN2SOfGG_aw'; // Note: This is a placeholder, replace with actual channel ID
+      const rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+      
+      // Alternative approach using playlist ID if channel ID doesn't work
+      const playlistId = 'PL6izvjIJW6Fbciyn3nSxIAprigsuHUnrm';
+      const playlistRssUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + playlistId;
+      const playlistApiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(playlistRssUrl);
+      
+      // Try channel ID first, fall back to playlist if needed
+      const apiUrlToUse = apiUrl;
+      
+      $.getJSON(apiUrlToUse, function(data) {
+        if (data.status === 'ok') {
+          // Load featured episode (first video)
+          if (data.items && data.items.length > 0) {
+            const featuredItem = data.items[0];
+            const featuredVid = featuredItem.link.split('v=')[1];
+            const featuredDate = new Date(featuredItem.pubDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+            
+            $('#featured-episode').html(`
+              <h3>${featuredItem.title}</h3>
+              <p class="episode-meta">Published on ${featuredDate}</p>
+              <div class="episode-video">
+                <iframe src="https://www.youtube.com/embed/${featuredVid}" frameborder="0" allowfullscreen></iframe>
+              </div>
+              <div class="episode-description">
+                <p>${featuredItem.description}</p>
+              </div>
+            `);
+            
+            // Load episode grid (all videos)
+            const episodeGrid = $('#episode-grid');
+            data.items.forEach(function(item, index) {
+              const vid = item.link.split('v=')[1];
+              const thumb = `https://i.ytimg.com/vi/${vid}/mqdefault.jpg`;
+              const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              });
+              
+              episodeGrid.append(`
+                <div class="episode-card">
+                  <a href="javascript:void(0);" class="episode-thumbnail" data-video-id="${vid}" data-title="${item.title}" data-date="${date}" data-description="${item.description}">
+                    <img src="${thumb}" alt="${item.title}" />
+                    <div class="episode-info">
+                      <h4>${item.title}</h4>
+                      <p class="episode-date">${date}</p>
+                    </div>
+                  </a>
+                </div>
+              `);
+            });
+            
+            // Add click event to episode thumbnails
+            $('.episode-thumbnail').click(function() {
+              const videoId = $(this).data('video-id');
+              const title = $(this).data('title');
+              const date = $(this).data('date');
+              const description = $(this).data('description');
+              
+              $('#featured-episode').html(`
+                <h3>${title}</h3>
+                <p class="episode-meta">Published on ${date}</p>
+                <div class="episode-video">
+                  <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="episode-description">
+                  <p>${description}</p>
+                </div>
+              `);
+              
+              // Scroll to featured episode
+              $('html, body').animate({
+                scrollTop: $('#featured-episode').offset().top - 100
+              }, 500);
+            });
+          }
+        } else {
+          $('#episode-grid').html('<p>Unable to load episodes. Please try again later.</p>');
+        }
+      }).fail(function() {
+        // If channel ID approach fails, try playlist approach
+        $.getJSON(playlistApiUrl, function(data) {
+          if (data.status === 'ok' && data.items && data.items.length > 0) {
+            // Process playlist data (same code as above)
+            const featuredItem = data.items[0];
+            const featuredVid = featuredItem.link.split('v=')[1];
+            const featuredDate = new Date(featuredItem.pubDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+            
+            $('#featured-episode').html(`
+              <h3>${featuredItem.title}</h3>
+              <p class="episode-meta">Published on ${featuredDate}</p>
+              <div class="episode-video">
+                <iframe src="https://www.youtube.com/embed/${featuredVid}" frameborder="0" allowfullscreen></iframe>
+              </div>
+              <div class="episode-description">
+                <p>${featuredItem.description}</p>
+              </div>
+            `);
+            
+            // Load episode grid (all videos)
+            const episodeGrid = $('#episode-grid');
+            data.items.forEach(function(item, index) {
+              const vid = item.link.split('v=')[1];
+              const thumb = `https://i.ytimg.com/vi/${vid}/mqdefault.jpg`;
+              const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              });
+              
+              episodeGrid.append(`
+                <div class="episode-card">
+                  <a href="javascript:void(0);" class="episode-thumbnail" data-video-id="${vid}" data-title="${item.title}" data-date="${date}" data-description="${item.description}">
+                    <img src="${thumb}" alt="${item.title}" />
+                    <div class="episode-info">
+                      <h4>${item.title}</h4>
+                      <p class="episode-date">${date}</p>
+                    </div>
+                  </a>
+                </div>
+              `);
+            });
+            
+            // Add click event to episode thumbnails
+            $('.episode-thumbnail').click(function() {
+              const videoId = $(this).data('video-id');
+              const title = $(this).data('title');
+              const date = $(this).data('date');
+              const description = $(this).data('description');
+              
+              $('#featured-episode').html(`
+                <h3>${title}</h3>
+                <p class="episode-meta">Published on ${date}</p>
+                <div class="episode-video">
+                  <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="episode-description">
+                  <p>${description}</p>
+                </div>
+              `);
+              
+              // Scroll to featured episode
+              $('html, body').animate({
+                scrollTop: $('#featured-episode').offset().top - 100
+              }, 500);
+            });
+          } else {
+            $('#episode-grid').html('<p>Unable to load episodes. Please try again later.</p>');
+          }
+        }).fail(function() {
+          $('#episode-grid').html('<p>Unable to load episodes. Please try again later.</p>');
+        });
+      });
+    });
+  </script>
 </body>
 </html>

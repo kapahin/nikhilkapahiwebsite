@@ -1,0 +1,41 @@
+Make the following changes:
+
+1. Change the podcasts tab to show multiple episodes automatically from my youtube channel.
+I shouldn't have to upload each new upload manually, it should be able to automatically pull it here
+display each episode as its own thumbnail and video window, just like Lex Fridman’s podcast page. 
+
+Try to follow this method and tell me if it doesn't work
+
+Youtube Channel Link: https://www.youtube.com/@InnerScorecard
+(optional) youtube Podcast Playlist: https://www.youtube.com/watch?v=pN2SOfGG_aw&list=PL6izvjIJW6Fbciyn3nSxIAprigsuHUnrm
+
+Sample code for a  method avoids needing an API key by using your YouTube RSS feed:
+
+html
+Copy
+Edit
+<div class="playlist" id="playlist"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  const rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCYOURCHANNELID';
+  const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+  $.getJSON(apiUrl, data => {
+    const container = $('#playlist');
+    data.items.slice(0,12).forEach(item => {
+      const vid = item.link.split('v=')[1];
+      const thumb = `https://i.ytimg.com/vi/${vid}/mqdefault.jpg`;
+      container.append(`
+        <a href="https://www.youtube.com/embed/${vid}" target="_blank">
+          <img src="${thumb}" alt="${item.title}" />
+          <p>${item.title}</p>
+        </a>`);
+    });
+  });
+</script>
+
+<style>
+  .playlist { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+  .playlist a img { width:100%; display:block; }
+</style>
+:small_blue_diamond: This loads video data via RSS converted to JSON—no API key required
+:small_blue_diamond: Good for showing the latest dozen videos with thumbnails
