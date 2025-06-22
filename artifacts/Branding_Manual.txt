@@ -1,0 +1,101 @@
+🎨 1. Visual & Design Consistency
+Font usage
+
+Always use Roboto (regular/light/medium/bold as needed) when generating any visuals, slides, banners, or mockups.
+
+Prioritize legibility and modern simplicity.
+
+Color palette
+Use only the following hex codes wherever visuals are generated:
+
+Black – #000000
+
+Tangerine – #E9A45A
+
+Coral Red – #C66358
+
+Plum – #76405F
+
+Deep Indigo – #2C0D84
+
+White – #FFFFFF
+
+Tip: For backgrounds, prefer dark gradient backgrounds like shown in samples (indigo/plum fading to black).
+
+Background style
+
+Emulate the subtle, moody gradient look you provided: deep blues/purples fading softly to black. Avoid flat or overly bright backgrounds.
+
+✍️ 2. Tone & Language Style
+Tone
+
+Professional yet warm and approachable.
+
+Confident, concise, and insightful.
+
+Avoid clichés; be authentic.
+
+Voice
+
+Use clear, crisp phrasing.
+
+Inject occasional subtle enthusiasm.
+
+Tailor phrasing to an audience interested in personal development, productivity, tech, and clarity.
+
+Structure
+
+Prefer bullet points or numbered lists for clarity.
+
+Keep paragraphs short and focused.
+
+Use bolding sparingly to highlight key insights or action items.
+
+🧩 3. Content & Purpose Guidelines
+Core values to reference
+
+Self-awareness
+
+Continuous growth
+
+Balanced productivity
+
+Recommended content types
+
+Website copy (headlines, intro paragraphs)
+
+Social posts (e.g., LinkedIn/X/Twitter snippets)
+
+Podcast descriptions, email drafts
+
+Visual mockups (e.g., banners, carousels)
+
+Formatting & brand markers
+
+Headlines in Roboto Bold, all caps or Title Case.
+
+Body copy in Roboto Regular or Light.
+
+Use primary brand color (#E9A45A) for highlights, CTAs, or emphasis.
+
+📦 4. Brand Asset Usage
+Always incorporate the gradient background in artwork unless explicitly requested otherwise.
+
+For logos or other brand elements, follow the visual spacing and proportion from your samples.
+
+When generating banners (e.g. X/Twitter, YouTube), emulate the layout exactly—bold white brand name (“THE INNER SCORECARD podcast”) centered against background.
+
+🧊 5. Quality Control Checklist
+When delivering any asset, run this final check:
+
+Font used = Roboto
+
+Colors limited to brand palette
+
+Background = dark gradient (like sample)
+
+Tone = confident, clear, approachable
+
+Visual hierarchy = headline, sub‑text, CTA
+
+General spacing and alignment replicate provided examples

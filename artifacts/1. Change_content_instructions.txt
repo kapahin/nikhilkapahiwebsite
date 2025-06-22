@@ -1,0 +1,49 @@
+
+Add/Modify these sections:
+
+1. Add in the header itself the links to my youtube podcast and the spotify. Use the logos in the artifacts folder
+
+2. use the following sections on the two pages on Home and Podcasts to fill up with a little bit more text
+<section id="about-me" class="intro-section">
+  <h1>Hi, I’m Nikhil Kapahi — welcome to The Inner Scorecard!</h1>
+  <p>By day I’m a senior scientist at Amazon, an investor, and an entrepreneur. Outside of work, I’m passionate about mindfulness and meditation—and I recently took on my most rewarding adventure yet: becoming a new dad.</p>
+  <p>I created The Inner Scorecard because I believe real success comes from within, measured by our own values rather than external validation. On this podcast, I share candid conversations about wins, failures, and everything in between—with inspiring guests and personal reflections as we explore what success truly looks like.</p>
+</section>
+
+
+
+<section id="podcast-overview">
+  <h2>About “The Inner Scorecard”</h2>
+  <p>The Inner Scorecard is a podcast dedicated to exploring success from the inside out. Whether you're building a business, navigating new parenthood, or refining your mindset, this is a space for real, honest conversations about growth and fulfillment.</p>
+</section>
+
+<section id="podcast-what-to-expect">
+  <h3>What to Expect</h3>
+  <ul>
+    <li><strong>Business & Finance:</strong> Practical insights on launching and scaling ventures, smart investing, and pursuing financial independence.</li>
+    <li><strong>Mental Models & Mindset:</strong> Deep dives into routines, habits, and mindsets that empower people to consistently level up.</li>
+    <li><strong>Science & Tech:</strong> Clear and engaging explorations of AI, machine learning, and emerging technologies.</li>
+    <li><strong>Community & Impact:</strong> Inspiring stories of individuals creating meaningful change—big and small.</li>
+  </ul>
+</section>
+
+<section id="host-bio">
+  <h3>Meet Your Host</h3>
+  <p>I’m Nikhil Kapahi—a scientist, investor, entrepreneur, and new dad with a passion for mindfulness and personal growth. I believe success is best measured by your own internal standards, and through this podcast, I’m sharing the frameworks, failures, and reflections that shape how we define our inner scorecards.</p>
+</section>
+
+<section id="about-me" class="intro-section">
+  <h1>Hi, I’m Nikhil Kapahi — welcome to The Inner Scorecard!</h1>
+  <p>By day I’m a senior scientist at Amazon, an investor, and an entrepreneur. Outside of work, I’m passionate about mindfulness and meditation—and I recently took on my most rewarding adventure yet: becoming a new dad.</p>
+  <p>I created The Inner Scorecard because I believe real success comes from within, measured by our own values rather than external validation. On this podcast, I share candid conversations about wins, failures, and everything in between—with inspiring guests and personal reflections as we explore what success truly looks like.</p>
+</section>
+
+3. Somewhere in the middle or at the bottom insert the social links
+Social Links: 
+
+Youtube: https://www.youtube.com/@InnerScorecard
+Spotify: https://open.spotify.com/show/3S5eGHfSQeG9gVvWbfOktT?si=db8fe6efd37d4f0b
+IG: https://www.instagram.com/inner.scorecard
+X: https://x.com/innerscorecard_
+Linkedin: https://www.linkedin.com/in/nikhilkapahi/
+

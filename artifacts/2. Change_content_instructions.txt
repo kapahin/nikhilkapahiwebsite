@@ -1,0 +1,7 @@
+Add/Modify these sections:
+
+1. Add also big icons to the youtube and Spotify on the podcasts tab to make it easier to go those channels before
+seeing individual episodes. Similar to this website https://lexfridman.com/podcast
+
+2. Change the font, and colors of background and others to match my branding manual suppled in the Branding_Manual.txt in the same folder
+you can suggest me main color options for the overall website and I can reply back to you with my choices
